@@ -97,8 +97,43 @@ Na koniec zakończyliśmy połącznie poleceniem
 \subsection{Połącznie z siecią ZETiIS}
 
 
-
 \section{Połącznie równy z równym}
+Aby zrealizować ćwiczenie stworzyliśmy interfejs wirtualny, odpowiednio na trasowniku \verb+t5+ oraz \verb+t6+, następnie przypisaliśmy im identyfikator sieci o nazwie 'TEST'. Polecenie wyglądało tak samo dla obu trasowników
+\begin{verbatim}
+  # ifconfig wlan0 create wlandev ath0 wlanmode adhoc
+  # ifconfig wlan0 ssid 'TEST'
+\end{verbatim}
+Kolejnym krokiem było przypisanie im odpowiednich adresów, dla \verb+t5 +  
+\begin{verbatim}
+ t5% # ifconfig wlan0 inet 10.1
+\end{verbatim}
+oraz \verb+t6+:
+\begin{verbatim}
+ t6 # ifconfig wlan0 inet 10.2
+\end{verbatim}
+Poprawność naszych działań sprawdziliśmy za pomocą programu ping oraz tcpdump.
+\begin{verbatim}
+ t5% ping -c 2 10.0.0.2
+ PING 10.0.0.2 (10.0.0.2): 56 data bytes
+ 64 bytes from 10.0.0.2: icmp_seq=0 ttl=64 time=19.418 ms
+ 64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.481 ms
+ --- 10.0.0.2 ping statistics ---
+ 2 packets transmitted, 2 packets received, 0.0% packet loss
+ round-trip min/avg/max/stddev = 0.481/9.950/19.418/9.468 ms
+\end{verbatim}
+na maszynie \verb+t6+:
+\begin{verbatim}
+ t6% # tcpdump -i wlan0
+ listening on wlan0, link-type EN10MB (Ethernet), capture size 65535 bytes
+ 21:08:27.152631 ARP, Request who-has 10.0.0.2 tell 10.0.0.1, length 28
+ 21:08:27.156381 IP 10.0.0.1 > 10.0.0.2: ICMP echo request, id 14342, seq 0, length 64
+ 21:08:27.156407 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, id 14342, seq 0, length 64
+ 21:08:28.152844 IP 10.0.0.1 > 10.0.0.2: ICMP echo request, id 14342, seq 1, length 64
+ 21:08:28.152878 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, id 14342, seq 1, length 64
+ 6 packets captured
+ 6 packets received by filter
+ 0 packets dropped by kernel
+\end{verbatim}
 
 
 
@@ -140,8 +175,45 @@ W wyniku otrzymaliśmy komunikat
  t5% # bt-proximity t4
  2BLISKO
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
- 0^C
+ 0
 \end{verbatim}
+
+W celu utworzenia sieci PAN wykorzystaliśmy skrypt bt-pan wywoływany na maszynie \verb+t5+, działającej jako serwer poleceniem 
+\begin{verbatim}
+ t5% # bt-pan -s
+\end{verbatim}
+następnie skonfigurowaliśmy interfejs:
+\begin{verbatim}
+ t5% # ifconfig tap0 10.5
+ t5% hccontrol read_connection_list
+ Remote BD_ADDR    Handle Type Mode Role Encrypt Pending Queue State
+ T5                     6  ACL    0 SLAV    NONE       0     0 OPEN
+\end{verbatim}
+analogiczne działanie zrobiliśmy na maszynie \verb+t2+ działającej jako klient:
+\begin{verbatim}
+ t2% # bt-pan -c t5
+ t2% # ifconfig tap0 10.2
+\end{verbatim}
+Działanie połączenia sprawdziliśmy programem ping oraz tcpdump.
+\begin{verbatim}
+ t2% ping -c 2 10.5
+PING 10.5 (10.0.0.5): 56 data bytes
+64 bytes from 10.0.0.5: icmp_seq=0 ttl=64 time=28.511 ms
+64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=20.370 ms
+\end{verbatim}
+
+\begin{verbatim}
+ t5% # tcpdump -i tap0 
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on tap0, link-type EN10MB (Ethernet), capture size 65535 bytes
+21:22:27.615820 ARP, Request who-has 10.0.0.5 tell 10.0.0.2, length 28
+21:22:27.615925 ARP, Reply 10.0.0.5 is-at 00:08:1b:00:2e:e3 (oui Unknown), length 28
+21:22:27.630737 IP 10.0.0.2 > 10.0.0.5: ICMP echo request, id 13571, seq 0, length 64
+21:22:27.630860 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply, id 13571, seq 0, length 64
+21:22:28.621617 IP 10.0.0.2 > 10.0.0.5: ICMP echo request, id 13571, seq 1, length 64
+21:22:28.621809 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply, id 13571, seq 1, length 64
+\end{verbatim}
+
 
 \section{Wnioski}
 
