@@ -26,6 +26,8 @@
 
 \section{Wstęp}
 
+Celem ćwiczenia była nauka zasad działania połączeń bezprzewodowych takich jak wi-fi oraz bluetooth.
+
 \section{Program Wi-Fi Analyzer}
 
 Za pomocą programu Wi-Fi Analyzer przeskanowaliśmy eter w budynku Starej 
@@ -66,7 +68,7 @@ W efekcie otrzymaliśmy podniesiony interfejs \verb+wlan0+, który automatycznie
 
 Przeskanowaliśmy eter w poszukiwaniu sieci \verb+pwwifi-students+.
 \begin{verbatim}
- k5% ifconfig wlan0 list scan | grep pwifi-s
+ k5% ifconfig wlan0 list scan | grep pwifi-stud
 pwwifi-stud...  00:24:14:31:37:72    1   54M -88:-95  102 ES   HTCAP WME
 pwwifi-stud...  00:24:14:31:95:02    1   54M -85:-95  102 ES   HTCAP WME
 pwwifi-stud...  0c:85:25:f2:96:62    1   54M -89:-95  102 ES   HTCAP WME
@@ -96,9 +98,26 @@ Na koniec zakończyliśmy połącznie poleceniem
 
 \subsection{Połącznie z siecią ZETiIS}
 
+Aby stworzyć połącznie musieliśmy zmienić plik konfiguracyjny \verb+/etc/wpa_supplicant.conf+. W miejscu dla sieci ZETiIS podaliśmy login i hasło oraz zmieniliśmy priorytet 
+na 30. Kolejnym krokiem było uruchomienie programu \verb+wpa_supplicant+ oraz kilenta dhcp poleceniem:
+\begin{verbatim}
+ k5% # service wpa_supplicant start wlan0
+ k5% # dhclient wlano
+ k5% # wpa_cli 
+\end{verbatim}
+ i otrzymaliśmy poniższy status:
+ \begin{verbatim}
+  > status
+  bssid=00:1e:52:79:ca:59
+  ssid=ZETiIS
+  id=1
+ \end{verbatim}
+sprawdziliśmy również połączenie poleceniem \verb+ping+ z rezultatem pozytywnym.
 
 \section{Połącznie równy z równym}
-Aby zrealizować ćwiczenie stworzyliśmy interfejs wirtualny, odpowiednio na trasowniku \verb+t5+ oraz \verb+t6+, następnie przypisaliśmy im identyfikator sieci o nazwie 'TEST'. Polecenie wyglądało tak samo dla obu trasowników
+
+Aby zrealizować ćwiczenie stworzyliśmy interfejs wirtualny uprzednio niszcząc instniejący interfej \verb+wlan0+,
+odpowiednio na trasowniku \verb+t5+ oraz \verb+t6+, następnie przypisaliśmy im identyfikator sieci o nazwie 'TEST'. Polecenie wyglądało tak samo dla obu trasowników
 \begin{verbatim}
   # ifconfig wlan0 create wlandev ath0 wlanmode adhoc
   # ifconfig wlan0 ssid 'TEST'
@@ -114,10 +133,12 @@ oraz \verb+t6+:
 Poprawność naszych działań sprawdziliśmy za pomocą programu ping oraz tcpdump.
 \begin{verbatim}
  t5% ping -c 2 10.0.0.2
- PING 10.0.0.2 (10.0.0.2): 56 data bytes
+ PING 10.0.0.2 (10.0.0.2): 56 data bytes
+
  64 bytes from 10.0.0.2: icmp_seq=0 ttl=64 time=19.418 ms
  64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.481 ms
- --- 10.0.0.2 ping statistics ---
+ --- 10.0.0.2 ping statistics ---
+
  2 packets transmitted, 2 packets received, 0.0% packet loss
  round-trip min/avg/max/stddev = 0.481/9.950/19.418/9.468 ms
 \end{verbatim}
@@ -126,20 +147,23 @@ na maszynie \verb+t6+:
  t6% # tcpdump -i wlan0
  listening on wlan0, link-type EN10MB (Ethernet), capture size 65535 bytes
  21:08:27.152631 ARP, Request who-has 10.0.0.2 tell 10.0.0.1, length 28
- 21:08:27.156381 IP 10.0.0.1 > 10.0.0.2: ICMP echo request, id 14342, seq 0, length 64
- 21:08:27.156407 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, id 14342, seq 0, length 64
- 21:08:28.152844 IP 10.0.0.1 > 10.0.0.2: ICMP echo request, id 14342, seq 1, length 64
- 21:08:28.152878 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, id 14342, seq 1, length 64
- 6 packets captured
- 6 packets received by filter
- 0 packets dropped by kernel
+ 21:08:27.156381 IP 10.0.0.1 > 10.0.0.2: ICMP echo request,
+  id 14342, seq 0, length 64
+ 21:08:27.156407 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, 
+  id 14342, seq 0, length 64
+ 21:08:28.152844 IP 10.0.0.1 > 10.0.0.2: ICMP echo request, 
+  id 14342, seq 1, length 64
+ 21:08:28.152878 IP 10.0.0.2 > 10.0.0.1: ICMP echo reply, 
+  id 14342, seq 1, length 64
 \end{verbatim}
 
 
 
 \section{Sieć bluetooth} 
 
-Zadaniem było połączyć dwa trasowniki przez interfes bluetooth w profilu czujnika zbliżeniowego.
+Zadaniem było połączyć dwa trasowniki przez interfes bluetooth w profilu czujnika zbliżeniowego oraz PAN.
+
+\subsection{Czujnik zbliżeniowy}
 
 Na samym początku załadowaliśmy sterowniki USB.
 \begin{verbatim}
@@ -178,6 +202,8 @@ W wyniku otrzymaliśmy komunikat
  0
 \end{verbatim}
 
+\subsection{Sieć PAN}
+
 W celu utworzenia sieci PAN wykorzystaliśmy skrypt bt-pan wywoływany na maszynie \verb+t5+, działającej jako serwer poleceniem 
 \begin{verbatim}
  t5% # bt-pan -s
@@ -207,14 +233,23 @@ PING 10.5 (10.0.0.5): 56 data bytes
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on tap0, link-type EN10MB (Ethernet), capture size 65535 bytes
 21:22:27.615820 ARP, Request who-has 10.0.0.5 tell 10.0.0.2, length 28
-21:22:27.615925 ARP, Reply 10.0.0.5 is-at 00:08:1b:00:2e:e3 (oui Unknown), length 28
-21:22:27.630737 IP 10.0.0.2 > 10.0.0.5: ICMP echo request, id 13571, seq 0, length 64
-21:22:27.630860 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply, id 13571, seq 0, length 64
-21:22:28.621617 IP 10.0.0.2 > 10.0.0.5: ICMP echo request, id 13571, seq 1, length 64
-21:22:28.621809 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply, id 13571, seq 1, length 64
+21:22:27.615925 ARP, Reply 10.0.0.5 is-at 00:08:1b:00:2e:e3 (oui Unknown),
+  length 28
+21:22:27.630737 IP 10.0.0.2 > 10.0.0.5: ICMP echo request,
+  id 13571, seq 0, length 64
+21:22:27.630860 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply,
+  id 13571, seq 0, length 64
+21:22:28.621617 IP 10.0.0.2 > 10.0.0.5: ICMP echo request,
+  id 13571, seq 1, length 64
+21:22:28.621809 IP 10.0.0.5 > 10.0.0.2: ICMP echo reply,
+  id 13571, seq 1, length 64
 \end{verbatim}
 
 
 \section{Wnioski}
+
+Wykonując zadane ćwiczenie udało nam sie pozytywnie skonfigurować połączenie z siecią ZETiIS oraz pwwifi-students. Wykorzystaliśmy do tego gotowe skrypty oraz program
+ \verb+wpa_supplicant+. Korzystając z interfejsów bezprzewodowych stworzyliśmy połączenie typu równy z równym oraz połączyliśmy dwa trasowniki przez interfejs Bluetooth w profilu
+czujnika zbliżeniowego oraz PAN.
 
 \end{document}
