@@ -1,0 +1,88 @@
+k5% ifconfig                                                                                              
+em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=4219b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,TSO4,WOL_MAGIC,VLAN_HWTSO>
+	ether e8:40:f2:ec:60:5e
+	inet 10.146.103.5 netmask 255.255.0.0 broadcast 10.146.255.255
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+em1: flags=8c02<BROADCAST,OACTIVE,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=4219b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,TSO4,WOL_MAGIC,VLAN_HWTSO>
+	ether e8:40:f2:ec:60:5f
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+	options=600003<RXCSUM,TXCSUM,RXCSUM_IPV6,TXCSUM_IPV6>
+	inet 127.0.0.1 netmask 255.0.0.0 
+iwn0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 2290
+	ether 00:24:d7:53:02:84
+	media: IEEE 802.11 Wireless Ethernet autoselect mode 11ng
+	status: associated
+wlan0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	ether 00:24:d7:53:02:84
+	inet 192.168.103.5 netmask 255.255.0.0 broadcast 192.168.255.255
+	media: IEEE 802.11 Wireless Ethernet OFDM/24Mbps mode 11ng
+	status: associated
+	ssid ZETiIS channel 6 (2437 MHz 11g ht/20) bssid 00:1e:52:79:ca:59
+	regdomain ETSI country PL authmode WPA2/802.11i privacy ON
+	deftxkey UNDEF AES-CCM 2:128-bit txpower 30 bmiss 10 scanvalid 450
+	bgscan bgscanintvl 300 bgscanidle 250 roam:rssi 7 roam:rate 64
+	protmode CTS ampdulimit 64k ampdudensity 8 -amsdutx amsdurx shortgi
+	wme roaming MANUAL
+
+
+k5% netstat -r
+Routing tables
+
+Internet:
+Destination        Gateway            Flags    Refs      Use  Netif Expire
+default            vol                UG          0       21    em0
+LAN                link#1             U           0    96210    em0
+k5.iem.pw.edu.pl   link#1             UHS         0        0    lo0
+localhost          link#5             UH          0        4    lo0
+WIFI               link#7             U           0        0  wlan0
+k5w.iem.pw.edu.pl  link#7             UHS         0        0    lo0
+
+
+k5% traceroute -i wlan0 wp.pl
+traceroute: Warning: wp.pl has multiple addresses; using 212.77.100.101
+traceroute to wp.pl (212.77.100.101), 64 hops max, 52 byte packets
+ 1  vol.wf (192.168.146.3)  203.527 ms  0.915 ms  0.446 ms
+ 2  gate (194.29.146.1)  7.935 ms  3.429 ms  2.009 ms
+ 3  coi-ee.ee.pw.edu.pl (194.29.132.225)  0.862 ms  1.463 ms  0.873 ms
+ 4  c7304.rtr.pw.edu.pl (194.29.132.161)  0.835 ms  1.657 ms  2.805 ms
+ 5  wp.tpix.pl (195.149.232.110)  13.926 ms  13.234 ms  13.148 ms
+ 6  rtr4.rtr-int-1.adm.wp-sa.pl (212.77.96.73)  16.816 ms  13.536 ms  15.794 ms
+ 7  www.wp.pl (212.77.100.101)  12.447 ms  12.532 ms  12.577 ms
+
+
+k5% pwwifi start wlan0
+dhclient is running as pid 2805
+add host 1.1.1.1: gateway 10.68.0.1 fib 0: route already in table
+numer albumu : 
+haslo (PESEL + pierwsza duza litera imienia matki) : haslo ponownie : 
+Web Authentication OK
+GATE=10.68.0.1 OLD=10.146.146.3
+change net default: gateway 10.68.0.1
+traceroute: Warning: wp.pl has multiple addresses; using 212.77.100.101
+traceroute to wp.pl (212.77.100.101), 64 hops max, 52 byte packets
+ 1  dns.pwifi-studets.pw.edu.pl (10.68.0.1)  17.767 ms  10.162 ms  18.012 ms
+ 2  coi-smolna.rtr.pw.edu.pl (194.29.130.1)  20.394 ms  8.685 ms  16.388 ms
+ 3  c7304.rtr.pw.edu.pl (194.29.132.161)  7.396 ms  7.535 ms  17.373 ms
+ 4  wp.tpix.pl (195.149.232.110)  28.443 ms  24.507 ms  23.683 ms
+ 5  rtr4.rtr-int-2.adm.wp-sa.pl (212.77.96.77)  42.935 ms  19.114 ms  32.423 ms
+ 6  www.wp.pl (212.77.100.101)  25.754 ms  23.697 ms  21.346 ms
+
+
+k5% netstat -r
+Routing tables
+
+Internet:
+Destination        Gateway            Flags    Refs      Use  Netif Expire
+default            dns.pwifi-studets. UGS         0      126  wlan0
+PWWIFI-GATE        dns.pwifi-studets. UGHS        0       12  wlan0
+PWIFI-STUDENTS     link#7             U           0        1  wlan0
+k5-pwifi           link#7             UHS         0        0    lo0
+LAN                link#1             U           0   106213    em0
+k5.iem.pw.edu.pl   link#1             UHS         0        0    lo0
+localhost          link#5             UH          0        4    lo0
+
