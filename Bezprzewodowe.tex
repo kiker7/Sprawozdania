@@ -11,7 +11,7 @@
 \hyphenation{FreeBSD}
 
 \author{Rafał Rutyna \\ Piotr Pyśk \\ GR3}
-\title{Laboratorium Sieci Komputerowych \\ {\small Interfejsy sieciowe}}
+\title{Laboratorium Sieci Komputerowych \\ {\small Interfejsy bezprzewodowe}}
 \date{\today}
 
 \linespread{1.3}
@@ -79,17 +79,19 @@ Skorzystaliśmy z gotowego skryptu \verb+pwwifi+.
 \begin{verbatim}
  k5% pwwifi start wlan0
 \end{verbatim}
-Następnie wpisaliśmy numer albumu i hasło. Sprawdziliśmy połącznie programem \verb+traceroute+.
+Następnie wpisaliśmy numer albumu i hasło. Sprawdziliśmy połącznie programem \verb+netstat+.
 \begin{verbatim}
- k5% traceroute wp.pl
-traceroute: Warning: wp.pl has multiple addresses; using 212.77.98.9
-traceroute to wp.pl (212.77.98.9), 64 hops max, 52 byte packets
- 1  dns.pwifi-studets.pw.edu.pl (10.68.0.1)  34.522 ms  8.813 ms  23.242 ms
- 2  coi-smolna.rtr.pw.edu.pl (194.29.130.1)  6.752 ms  7.757 ms  10.008 ms
- 3  c7304.rtr.pw.edu.pl (194.29.132.161)  26.561 ms  4.265 ms  15.967 ms
- 4  wp.tpix.pl (195.149.232.110)  19.024 ms  14.834 ms  18.221 ms
- 5  rtr4.rtr-int-1.adm.wp-sa.pl (212.77.96.73)  15.040 ms  13.959 ms  13.861 ms
- 6  www.wp.pl (212.77.98.9)  13.929 ms  14.180 ms  13.397 ms
+k5% netstat -r
+Routing tables
+Internet:
+Destination        Gateway            Flags    Refs      Use  Netif Expire
+default            dns.pwifi-studets. UGS         0      126  wlan0
+PWWIFI-GATE        dns.pwifi-studets. UGHS        0       12  wlan0
+PWIFI-STUDENTS     link#7             U           0        1  wlan0
+k5-pwifi           link#7             UHS         0        0    lo0
+LAN                link#1             U           0   106213    em0
+k5.iem.pw.edu.pl   link#1             UHS         0        0    lo0
+localhost          link#5             UH          0        4    lo0
 \end{verbatim}
 Na koniec zakończyliśmy połącznie poleceniem
 \begin{verbatim}
@@ -98,21 +100,29 @@ Na koniec zakończyliśmy połącznie poleceniem
 
 \subsection{Połącznie z siecią ZETiIS}
 
-Aby stworzyć połącznie musieliśmy zmienić plik konfiguracyjny \verb+/etc/wpa_supplicant.conf+. W miejscu dla sieci ZETiIS podaliśmy login i hasło oraz zmieniliśmy priorytet 
-na 30. Kolejnym krokiem było uruchomienie programu \verb+wpa_supplicant+ oraz kilenta dhcp poleceniem:
+Aby stworzyć połącznie musieliśmy zmienić plik konfiguracyjny \verb+/etc/wpa_supplicant.conf+. W tym celu posłużyliśmy się gotowym skryptem \verb+wpa-pass-zetis+ 
+który na podstawie podanego hasła generował jego hash i tworzył gotowe dane konfiguracyjne które następnie umieściliśmy w pliku konfiguracyjnym.
+Kolejnym krokiem było uruchomienie programu \verb+wpa_supplicant+ oraz kilenta dhcp poleceniem:
 \begin{verbatim}
- k5% # service wpa_supplicant start wlan0
- k5% # dhclient wlano
- k5% # wpa_cli 
+ k5% # wpa_supplicant start wlan0
+ k5% # wpa_supplicant -iwlan0 -c/etc/wpa_supplicant.conf
+ k5% # dhclient wlan0
 \end{verbatim}
- i otrzymaliśmy poniższy status:
- \begin{verbatim}
-  > status
-  bssid=00:1e:52:79:ca:59
-  ssid=ZETiIS
-  id=1
- \end{verbatim}
-sprawdziliśmy również połączenie poleceniem \verb+ping+ z rezultatem pozytywnym.
+Połączenie sprawdziliśmy programem \verb+netstat+.
+\begin{verbatim}
+ k5% netstat -r
+  Routing tables
+  Internet:
+  Destination        Gateway            Flags    Refs      Use  Netif Expire
+  default            vol                UG          0       21    em0
+  LAN                link#1             U           0    96210    em0
+  k5.iem.pw.edu.pl   link#1             UHS         0        0    lo0
+  localhost          link#5             UH          0        4    lo0
+  WIFI               link#7             U           0        0  wlan0
+  k5w.iem.pw.edu.pl  link#7             UHS         0        0    lo0
+\end{verbatim}
+
+
 
 \section{Połącznie równy z równym}
 
@@ -202,7 +212,7 @@ W wyniku otrzymaliśmy komunikat
  0
 \end{verbatim}
 
-\subsection{Sieć PAN}
+\subsection{Profil PAN}
 
 W celu utworzenia sieci PAN wykorzystaliśmy skrypt bt-pan wywoływany na maszynie \verb+t5+, działającej jako serwer poleceniem 
 \begin{verbatim}
