@@ -1,0 +1,62 @@
+Script started on Thu Apr 30 15:12:41 2015
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Kmmkmd 100m /mnt/d1
+[1;31;40myou must be root[m
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Kmkmd 100m /mnt/d1[17Dsmkmd 100m /mnt/d1[17Dsumkmd 100m /mnt/d1[17Ddmkmd 100m /mnt/d1[17Domkmd 100m /mnt/d1[17D mkmd 100m /mnt/d1[17D
+Filesystem    Size    Used   Avail Capacity  Mounted on
+/dev/md0       96M    8,0k     88M     0%    /mnt/d1
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [K## nfs3-server[1m [m[m /mnt/d1
+nfsd not running?
+NFSv4 is disabled
+Starting mountd.
+Starting nfsd.
+Exports list on localhost:
+/mnt/d1                            Everyone
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Ksshowmount -e localhost
+Exports list on localhost:
+/mnt/d1                            Everyone
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Krrpcinfo -p
+   program vers proto   port  service
+    100000    4   tcp    111  rpcbind
+    100000    3   tcp    111  rpcbind
+    100000    2   tcp    111  rpcbind
+    100000    4   udp    111  rpcbind
+    100000    3   udp    111  rpcbind
+    100000    2   udp    111  rpcbind
+    100000    4 local    111  rpcbind
+    100000    3 local    111  rpcbind
+    100000    2 local    111  rpcbind
+    100005    1   udp    707  mountd
+    100005    3   udp    707  mountd
+    100005    1   tcp    707  mountd
+    100005    3   tcp    707  mountd
+    100003    2   udp   2049  nfs
+    100003    3   udp   2049  nfs
+    100003    2   tcp   2049  nfs
+    100003    3   tcp   2049  nfs
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [K## service mountd status
+mountd is running as pid 2783
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [K## service nfsd status
+nfsd is running as pid 2785 2786
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Kiifconfig
+em0: flags=8943<UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=4219b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,TSO4,WOL_MAGIC,VLAN_HWTSO>
+	ether e8:40:f2:ec:60:5e
+	inet 10.146.103.5 netmask 255.255.0.0 broadcast 10.146.255.255
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+em1: flags=8c02<BROADCAST,OACTIVE,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=4219b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,TSO4,WOL_MAGIC,VLAN_HWTSO>
+	ether e8:40:f2:ec:60:5f
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+	options=600003<RXCSUM,TXCSUM,RXCSUM_IPV6,TXCSUM_IPV6>
+	inet 127.0.0.1 netmask 255.0.0.0 
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Klls -la /mnt/d1
+total 1
+drwxr-xr-x  2 pyskp  stud   512 30 kwi 15:17 .
+drwxr-xr-x  9 root   wheel  512 11 paź  2014 ..
+-rw-r--r--  1 root   stud     0 30 kwi 15:17 plik
+[1m[7m%[27m[1m[m                                                                                                                                       [m[27m[24m[Jk5% [Keexit
+
+Script done on Thu Apr 30 15:18:13 2015

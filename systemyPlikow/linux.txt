@@ -1,0 +1,176 @@
+Script started on czw, 30 kwi 2015, 13:36:44
+]0;stud@ubuntu: ~stud@ubuntu:~$ mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp
+mount: only root can do that
+]0;stud@ubuntu: ~stud@ubuntu:~$ mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp[1@s[1@u[1@d[1@o[1@ 
+Usage: mount -V                 : print version
+       mount -h                 : print this help
+       mount                    : list mounted filesystems
+       mount -l                 : idem, including volume labels
+So far the informational part. Next the mounting.
+The command is `mount [-t fstype] something somewhere'.
+Details found in /etc/fstab may be omitted.
+       mount -a [-t|-O] ...     : mount all stuff from /etc/fstab
+       mount device             : mount device at the known place
+       mount directory          : mount known device here
+       mount -t type dev dir    : ordinary mount command
+Note that one does not really mount a device, one mounts
+a filesystem (of the given type) found on the device.
+One can also mount an already visible directory tree elsewhere:
+       mount --bind olddir newdir
+or move a subtree:
+       mount --move olddir newdir
+One can change the type of mount containing the directory dir:
+       mount --make-shared dir
+       mount --make-slave dir
+       mount --make-private dir
+       mount --make-unbindable dir
+One can change the type of all the mounts in a mount subtree
+containing the directory dir:
+       mount --make-rshared dir
+       mount --make-rslave dir
+       mount --make-rprivate dir
+       mount --make-runbindable dir
+A device can be given by name, say /dev/hda1 or /dev/cdrom,
+or by label, using  -L label  or by uuid, using  -U uuid .
+Other options: [-nfFrsvw] [-o options] [-p passwdfd].
+For many more details, say  man 8 mount .
+]0;stud@ubuntu: ~stud@ubuntu:~$ sudo mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp /tmp/mnt
+Couldn't chdir to /tmp/mnt: No such file or directory
+]0;stud@ubuntu: ~stud@ubuntu:~$ sudo mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp /tmp/mnt[K[K[K[K[K[K[Kmnt/tmp
+Couldn't chdir to /mnt/tmp: No such file or directory
+]0;stud@ubuntu: ~stud@ubuntu:~$ sudo mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp /mnt/tmp[K[K[K[K[K[K[K[K~/
+Password for pyskp@//stud.iem.pw.edu.pl/pyskp: 
+]0;stud@ubuntu: ~stud@ubuntu:~$ df ~
+Filesystem                 1K-blocks     Used Available Use% Mounted on
+//stud.iem.pw.edu.pl/pyskp  71111766 65367214     55612 100% /home/stud
+]0;stud@ubuntu: ~stud@ubuntu:~$ ls
+[0m[01;34mDesktop[0m  [01;34mDokumenty[0m  linux.txt  [01;34mMuzyka[0m  [01;34mObrazy[0m  [01;34mPobrane[0m  [01;34mPubliczny[0m  [01;34mSzablony[0m  [01;34mWideo[0m
+]0;stud@ubuntu: ~stud@ubuntu:~$ pwd
+/home/stud
+]0;stud@ubuntu: ~stud@ubuntu:~$ pwd[Ksudo umount -f /home/stud
+]0;stud@ubuntu: ~stud@ubuntu:~$ df ~
+Filesystem     1K-blocks  Used Available Use% Mounted on
+/cow              508696 69252    439444  14% /
+]0;stud@ubuntu: ~stud@ubuntu:~$ ls
+[0m[01;34mDesktop[0m  [01;34mDokumenty[0m  linux.txt  [01;34mMuzyka[0m  [01;34mObrazy[0m  [01;34mPobrane[0m  [01;34mPubliczny[0m  [01;34mSzablony[0m  [01;34mWideo[0m
+]0;stud@ubuntu: ~stud@ubuntu:~$ ll -la
+total 24
+drwxr-xr-x 15 stud stud  440 kwi 30 13:36 [0m[01;34m.[0m/
+drwxr-xr-x  1 root root   60 kwi 30  2015 [01;34m..[0m/
+-rw-r--r--  1 stud stud  220 kwi 30  2015 .bash_logout
+-rw-r--r--  1 stud stud 3637 kwi 30  2015 .bashrc
+drwx------ 10 stud stud  220 kwi 30 13:06 [01;34m.cache[0m/
+drwx------ 14 stud stud  320 kwi 30 13:07 [01;34m.config[0m/
+drwxr-xr-x  2 stud stud   80 kwi 30 13:06 [01;34mDesktop[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mDokumenty[0m/
+drwx------  3 stud stud   60 kwi 30 13:07 [01;34m.gconf[0m/
+-rw-------  1 stud stud  318 kwi 30 13:06 .ICEauthority
+-rw-rw-r--  1 stud stud    0 kwi 30 13:36 linux.txt
+drwx------  3 stud stud   60 kwi 30 13:05 [01;34m.local[0m/
+drwx------  4 stud stud   80 kwi 30 13:06 [01;34m.mozilla[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mMuzyka[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mObrazy[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mPobrane[0m/
+-rw-r--r--  1 stud stud  675 kwi 30  2015 .profile
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mPubliczny[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mSzablony[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mWideo[0m/
+-rw-------  1 stud stud   51 kwi 30  2015 .Xauthority
+-rw-------  1 stud stud  711 kwi 30 13:06 .xsession-errors
+]0;stud@ubuntu: ~stud@ubuntu:~$ ll -las[Kdf ~sudo umount -f /home/stud[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpwd[K[1Plsdf ~sudo mount -t cifs -o user=pyskp //stud.iem.pw.edu.pl/pyskp ~/[1P[1P[1P[1P[1@v[1@o[1@l[1@t
+Password for pyskp@//volt.iem.pw.edu.pl/pyskp: 
+]0;stud@ubuntu: ~stud@ubuntu:~$ df ~
+Filesystem                 1K-blocks     Used Available Use% Mounted on
+//volt.iem.pw.edu.pl/pyskp  71111766 65367230     55596 100% /home/stud
+]0;stud@ubuntu: ~stud@ubuntu:~$ ll -la
+total 28
+drwxr-xr-x 15 stud stud  440 kwi 30 13:36 [0m[01;34m.[0m/
+drwxr-xr-x  1 root root   60 kwi 30  2015 [01;34m..[0m/
+-rw-r--r--  1 stud stud  220 kwi 30  2015 .bash_logout
+-rw-r--r--  1 stud stud 3637 kwi 30  2015 .bashrc
+drwx------ 10 stud stud  220 kwi 30 13:06 [01;34m.cache[0m/
+drwx------ 14 stud stud  320 kwi 30 13:07 [01;34m.config[0m/
+drwxr-xr-x  2 stud stud   80 kwi 30 13:06 [01;34mDesktop[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mDokumenty[0m/
+drwx------  3 stud stud   60 kwi 30 13:07 [01;34m.gconf[0m/
+-rw-------  1 stud stud  318 kwi 30 13:06 .ICEauthority
+-rw-rw-r--  1 stud stud 4096 kwi 30 13:39 linux.txt
+drwx------  3 stud stud   60 kwi 30 13:05 [01;34m.local[0m/
+drwx------  4 stud stud   80 kwi 30 13:06 [01;34m.mozilla[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mMuzyka[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mObrazy[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mPobrane[0m/
+-rw-r--r--  1 stud stud  675 kwi 30  2015 .profile
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mPubliczny[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mSzablony[0m/
+drwxr-xr-x  2 stud stud   40 kwi 30  2015 [01;34mWideo[0m/
+-rw-------  1 stud stud   51 kwi 30  2015 .Xauthority
+-rw-------  1 stud stud  711 kwi 30 13:06 .xsession-errors
+]0;stud@ubuntu: ~stud@ubuntu:~$ showmon[Kunt -e k5
+The program 'showmount' is currently not installed. You can install it by typing:
+sudo apt-get install nfs-common
+]0;stud@ubuntu: ~stud@ubuntu:~$ sudo apt-get install nfs-common 
+Czytanie list pakietów... 0%Czytanie list pakietów... 0%Czytanie list pakietów... 0%Czytanie list pakietów... 0%Czytanie list pakietów... 0%Czytanie list pakietów... 0%Czytanie list pakietów... 1%Czytanie list pakietów... 32%Czytanie list pakietów... 32%Czytanie list pakietów... 33%Czytanie list pakietów... 33%Czytanie list pakietów... 50%Czytanie list pakietów... 50%Czytanie list pakietów... 57%Czytanie list pakietów... 57%Czytanie list pakietów... 57%Czytanie list pakietów... 57%Czytanie list pakietów... 57%Czytanie list pakietów... 57%Czytanie list pakietów... 64%Czytanie list pakietów... 64%Czytanie list pakietów... 64%Czytanie list pakietów... 64%Czytanie list pakietów... 70%Czytanie list pakietów... 70%Czytanie list pakietów... 70%Czytanie list pakietów... 70%Czytanie list pakietów... 83%Czytanie list pakietów... 83%Czytanie list pakietów... 84%Czytanie list pakietów... 84%Czytanie list pakietów... 93%Czytanie list pakietów... 93%Czytanie list pakietów... 93%Czytanie list pakietów... 93%Czytanie list pakietów... Gotowe
+Budowanie drzewa zależności... 0%Budowanie drzewa zależności... 0%Budowanie drzewa zależności... 50%Budowanie drzewa zależności... 50%Budowanie drzewa zależności       
+Odczyt informacji o stanie... 0%Odczyt informacji o stanie... 0%Odczyt informacji o stanie... Gotowe
+Zostaną zainstalowane następujące dodatkowe pakiety:
+  libgssglue1 libnfsidmap2 libtirpc1 rpcbind
+Sugerowane pakiety:
+  open-iscsi watchdog
+Zostaną zainstalowane następujące NOWE pakiety:
+  libgssglue1 libnfsidmap2 libtirpc1 nfs-common rpcbind
+0 aktualizowanych, 5 nowo instalowanych, 0 usuwanych i 223 nieaktualizowanych.
+Konieczne pobranie 342 kB archiwów.
+Po tej operacji zostanie dodatkowo użyte 1375 kB miejsca na dysku.
+Kontynuować? [T/n] t
+0% [Pracuje]            0% [Oczekiwanie na nagłówki]                              Pobieranie:1 http://archive.ubuntu.com/ubuntu/ trusty/main libgssglue1 amd64 0.4-2ubuntu1 [19,7 kB]
+                              0% [1 libgssglue1 0 B/19,7 kB 0%]                                 3% [1 libgssglue1 9869 B/19,7 kB 50%]                                     6% [Pracuje]            6% [Oczekiwanie na nagłówki]                              Pobieranie:2 http://archive.ubuntu.com/ubuntu/ trusty/main libnfsidmap2 amd64 0.25-5 [32,2 kB]
+                              6% [2 libnfsidmap2 0 B/32,2 kB 0%]                                  10% [2 libnfsidmap2 13,9 kB/32,2 kB 43%]15% [2 libnfsidmap2 30,1 kB/32,2 kB 94%]                                        15% [Pracuje]             15% [Oczekiwanie na nagłówki]                               Pobieranie:3 http://archive.ubuntu.com/ubuntu/ trusty/main libtirpc1 amd64 0.2.2-5ubuntu2 [71,3 kB]
+                               17% [3 libtirpc1 7844 B/71,3 kB 11%]                                    21% [3 libtirpc1 20,0 kB/71,3 kB 28%]28% [3 libtirpc1 43,3 kB/71,3 kB 61%]                                     36% [Pracuje]             36% [Oczekiwanie na nagłówki]                               Pobieranie:4 http://archive.ubuntu.com/ubuntu/ trusty-updates/main rpcbind amd64 0.2.1-2ubuntu2.1 [37,0 kB]
+                               36% [4 rpcbind 761 B/37,0 kB 2%]                                46% [4 rpcbind 33,1 kB/37,0 kB 90%]                                24,5 kB/s 7s47% [Pracuje]                                                      24,5 kB/s 7s47% [Oczekiwanie na nagłówki]                                    24,5 kB/s 7s                                                                               Pobieranie:5 http://archive.ubuntu.com/ubuntu/ trusty-updates/main nfs-common amd64 1:1.2.8-6ubuntu1.1 [182 kB]
+53% [5 nfs-common 22,0 kB/182 kB 12%]                              24,5 kB/s 6s57% [5 nfs-common 36,2 kB/182 kB 20%]                              24,5 kB/s 5s69% [5 nfs-common 76,7 kB/182 kB 42%]                              24,5 kB/s 4s78% [5 nfs-common 105 kB/182 kB 58%]                               24,5 kB/s 3s83% [5 nfs-common 122 kB/182 kB 67%]                               24,5 kB/s 2s98% [5 nfs-common 175 kB/182 kB 96%]                               24,5 kB/s 0s99% [5 nfs-common 179 kB/182 kB 99%]                               24,5 kB/s 0s100% [Pracuje]                                                     24,5 kB/s 0s                                                                               Pobrano 342 kB w 10s (33,0 kB/s)
+Wybieranie wcześniej niewybranego pakietu libgssglue1:amd64.
+(Odczytywanie bazy danych ... (Odczytywanie bazy danych ... 5%(Odczytywanie bazy danych ... 10%(Odczytywanie bazy danych ... 15%(Odczytywanie bazy danych ... 20%(Odczytywanie bazy danych ... 25%(Odczytywanie bazy danych ... 30%(Odczytywanie bazy danych ... 35%(Odczytywanie bazy danych ... 40%(Odczytywanie bazy danych ... 45%(Odczytywanie bazy danych ... 50%(Odczytywanie bazy danych ... 55%(Odczytywanie bazy danych ... 60%(Odczytywanie bazy danych ... 65%(Odczytywanie bazy danych ... 70%(Odczytywanie bazy danych ... 75%(Odczytywanie bazy danych ... 80%(Odczytywanie bazy danych ... 85%(Odczytywanie bazy danych ... 90%(Odczytywanie bazy danych ... 95%(Odczytywanie bazy danych ... 100%(Odczytywanie bazy danych ... 169699 plików i katalogów obecnie zainstalowanych.)
+Preparing to unpack .../libgssglue1_0.4-2ubuntu1_amd64.deb ...
+Unpacking libgssglue1:amd64 (0.4-2ubuntu1) ...
+Wybieranie wcześniej niewybranego pakietu libnfsidmap2:amd64.
+Preparing to unpack .../libnfsidmap2_0.25-5_amd64.deb ...
+Unpacking libnfsidmap2:amd64 (0.25-5) ...
+Wybieranie wcześniej niewybranego pakietu libtirpc1:amd64.
+Preparing to unpack .../libtirpc1_0.2.2-5ubuntu2_amd64.deb ...
+Unpacking libtirpc1:amd64 (0.2.2-5ubuntu2) ...
+Wybieranie wcześniej niewybranego pakietu rpcbind.
+Preparing to unpack .../rpcbind_0.2.1-2ubuntu2.1_amd64.deb ...
+Unpacking rpcbind (0.2.1-2ubuntu2.1) ...
+Wybieranie wcześniej niewybranego pakietu nfs-common.
+Preparing to unpack .../nfs-common_1%3a1.2.8-6ubuntu1.1_amd64.deb ...
+Unpacking nfs-common (1:1.2.8-6ubuntu1.1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Konfigurowanie pakietu libgssglue1:amd64 (0.4-2ubuntu1) ...
+Konfigurowanie pakietu libnfsidmap2:amd64 (0.25-5) ...
+Konfigurowanie pakietu libtirpc1:amd64 (0.2.2-5ubuntu2) ...
+Konfigurowanie pakietu rpcbind (0.2.1-2ubuntu2.1) ...
+ Removing any system startup links for /etc/init.d/rpcbind ...
+initctl: Unknown job: rpcbind
+Processing triggers for ureadahead (0.100.0-16) ...
+Konfigurowanie pakietu nfs-common (1:1.2.8-6ubuntu1.1) ...
+
+Creating config file /etc/idmapd.conf with new version
+
+Creating config file /etc/default/nfs-common with new version
+Adding system user `statd' (UID 116) ...
+Adding new user `statd' (UID 116) with group `nogroup' ...
+Not creating home directory `/var/lib/nfs'.
+initctl: Unknown job: statd
+gssd stop/pre-start, process 4731
+idmapd start/running, process 4778
+Processing triggers for libc-bin (2.19-0ubuntu6.5) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+]0;stud@ubuntu: ~stud@ubuntu:~$ showmount -e k5
+Export list for k5:
+/mnt/d1 (everyone)
+]0;stud@ubuntu: ~stud@ubuntu:~$ exit
+exit
+
+Script done on czw, 30 kwi 2015, 13:44:21

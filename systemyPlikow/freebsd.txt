@@ -1,0 +1,65 @@
+Script started on Thu Apr 30 15:23:18 2015
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kssh -x =home
++ [ '' ]
++ LANG=pl_PL.UTF-8
++ USER=pyskp
++ typ=smb
++ getopts c:dhmnt opt
++ shift 0
++ id -un
++ [ pyskp = root ]
++ sudo=sudo
++ hostname -s
++ host=k5
++ [ ! -d /home/stud/pyskp ]
++ id -gn pyskp
++ GROUP=stud
++ HOST=volt
++ smb
++ stacja
++ hostname -s
++ cd /
++ sudo mount_smbfs -u pyskp -g stud -d 711 -L pl_PL.UTF-8 //pyskp@volt/pyskp /home/stud/pyskp
+Password:
++ zablokuj-sudo
++ echo 'uwaga: root ma dostęp do Twojego HOME - zablokuj sudo dla innych'
+uwaga: root ma dostęp do Twojego HOME - zablokuj sudo dla innych
++ echo 'np. poleceniem: ssh-blok start'
+np. poleceniem: ssh-blok start
++ df -h /home/stud/pyskp
+Filesystem            Size    Used   Avail Capacity  Mounted on
+//PYSKP@VOLT/PYSKP     97M     43M     54M    44%    /home/stud/pyskp
++ exit
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Ksshow  s  ddf -f /home/stud/pysj kp
+df: illegal option -- f
+usage: df [-b | -g | -H | -h | -k | -m | -P] [-acilnT] [-t type] [-,]
+          [file | filesystem ...]
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kdf -f /home/stud/pyskp[22D[1C[1C[1C[1C[1C[P[17C [18D[P[17C [18D[P[16C [18D
+Filesystem         1M-blocks Used Avail Capacity  Mounted on
+//PYSKP@VOLT/PYSKP        97   43    54    44%    /home/stud/pyskp
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kuumount -f /home/stud/[ pyskp
+umount: unmount of /home/stud/pyskp failed: Operation not permitted
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kumount -f /home/stud/pyskp[26Dsumount -f /home/stud/pyskp[26D[1Cumount -f /home/stud/pyskp[26Ddumount -f /home/stud/pyskp[26Doumount -f /home/stud/pyskp[26Doumount -f /home/stud/pyskp[26D[P[26C [27D umount -f /home/stud/pyskp[26D
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Ksudo umount -f /home/stud/pyskp[31D[5P[26C     [31Dd[7P[18C       [26D
+Filesystem 1M-blocks Used Avail Capacity  Mounted on
+tmpfs           5065    5  5060     0%    /home/stud/pyskp
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kmmount -t nfs //VOLT/[ y o pyskp /home/stud/[ pyskp
+mount_nfs: no <host>:<dirpath> nfs-name
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kmount -t nfs //VOLT/pyskp /home/stud/pyskp[42D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[22C [24D[P[22C [24Dv/pyskp /home/stud/pyskp[23Do/pyskp /home/stud/pyskp[23Dl/pyskp /home/stud/pyskp[23Dt/pyskp /home/stud/pyskp[23D:/pyskp /home/stud/pyskp[23D[1C[P[22C [23D/pyskp /home/stud/pyskp[22Dhpyskp /home/stud/pyskp[22Dopyskp /home/stud/pyskp[22Dmpyskp /home/stud/pyskp[22Depyskp /home/stud/pyskp[22D/pyskp /home/stud/pyskp[22Dspyskp /home/stud/pyskp[22Dypyskp /home/stud/pyskp[22D[P[22C [23Dtpyskp /home/stud/pyskp[22Dupyskp /home/stud/pyskp[22Ddpyskp /home/stud/pyskp[22D/pyskp /home/stud/pyskp[22D
+[tcp] volt:/home/stud/pyskp: RPCPROG_MNT: RPC: Authentication error; why = Client credential too weak
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kmount -t nfs volt:/home/stud/pyskp /home/stud/pyskp[51D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1Cuvolt:[16P[16C /home/stud/pyskp[38Dsvolt:[16P[16C /home/stud/pyskp[38Devolt:[16P[16C /home/stud/pyskp[38Drvolt:[16P[16C /home/stud/pyskp[38D=volt:[16P[16C /home/stud/pyskp[38Dpvolt:[16P[16C /home/stud/pyskp[38Dyvolt:[16P[16C /home/stud/pyskp[38Dsvolt:[16P[16C /home/stud/pyskp[38Dkvolt:[16P[16C /home/stud/pyskp[38Dpvolt:[16P[16C /home/stud/pyskp[38D volt:[16P[16C /home/stud/pyskp[38D
+usage: mount [-adflpruvw] [-F fstab] [-o options] [-t ufs | external_type]
+       mount [-dfpruvw] special | node
+       mount [-dfpruvw] [-o options] [-t ufs | external_type] special node
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Kmount -t nfs user=pyskp volt:/home/stud/pyskp /home/stud/pyskp[62D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[39C [40D[P[38C [40D#mount -t nfs volt:[16P[16C /home/stud/pyskp[51D# mount -t nfs volt:[16P[16C /home/stud/pyskp[51D
+[tcp] volt:/home/stud/pyskp: Permission denied
+^C[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [K# mount -t nfs volt:/home/stud/pyskp /home/stud/pyskp[53D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[P[39C [40D[P[39C [40D[P[39C [40Dc volt:[16P[16C /home/stud/pyskp[39Di volt:[16P[16C /home/stud/pyskp[39Df volt:[16P[16C /home/stud/pyskp[39Ds volt:[16P[16C /home/stud/pyskp[39D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[22C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[22C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24D[1C/pyskp /home/stud/pyskp[23D[1C/pyskp /home/stud/pyskp[23Dv/pyskp /home/stud/pyskp[23Do/pyskp /home/stud/pyskp[23Dl/pyskp /home/stud/pyskp[23Dt/pyskp /home/stud/pyskp[23D
+mount: /volt/pyskp: Operation not supported by device
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [K# mount -t cifs //volt/pyskp /home/stud/pyskp[45D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[P[23C [24D[P[23C [24D[P[23C [24D[P[23C [24DV/pyskp /home/stud/pyskp[23DO/pyskp /home/stud/pyskp[23DL/pyskp /home/stud/pyskp[23DT/pyskp /home/stud/pyskp[23D
+mount: /VOLT/pyskp: Operation not supported by device
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Ksshowmount -e \\  //VOLT
+RPC: Unknown host
+showmount: can't do exports rpc
+[1m[7m%[27m[1m[m                                                                                                                                   [m[27m[24m[Jk5% [Keexit
+
+Script done on Thu Apr 30 15:33:41 2015
